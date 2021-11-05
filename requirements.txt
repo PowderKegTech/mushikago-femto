@@ -1,0 +1,4 @@
+MechanicalSoup >= 1.1.0
+pymetasploit3 >= 1.0.3
+mac-vendor-lookup >= 0.1.11
+msgpack >= 1.0.2
