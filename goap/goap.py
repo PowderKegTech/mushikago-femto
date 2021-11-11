@@ -743,8 +743,8 @@ class GoapSymbol():
           exploit.unsetting_route(scan_nwaddr, "255.255.0.0", self.node[node_num]["session"])
     elif private_ip == 172:
       nwaddr = IPv4Interface(ipaddr+'/16').network
-      delete_index = self.class_a.index(str(nwaddr[0]))
-      self.class_a.pop(delete_index)
+      delete_index = self.class_b.index(str(nwaddr[0]))
+      self.class_b.pop(delete_index)
       for scan_nwaddr in self.class_b:
         self.mlogger.writelog("scan nwaddr = " + str(nwaddr), "info")
         exploit.setting_route(scan_nwaddr, "255.255.0.0", self.node[node_num]["session"])
