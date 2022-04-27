@@ -2,7 +2,8 @@
 
 # apt update and install required modules
 apt update &&
-apt install build-essential g++ gcc make autoconf dh-autoreconf libpcap-dev sqlite3 libsqlite3-dev libssl-dev net-tools tshark -y &&
+apt upgrade -y &&
+apt install build-essential g++ gcc make autoconf dh-autoreconf libpcap-dev sqlite3 libsqlite3-dev libssl-dev net-tools tshark python-dev default-libmysqlclient-dev python3-dev -y &&
 
 
 # nmap install

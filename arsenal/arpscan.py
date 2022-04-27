@@ -2,20 +2,28 @@ from database import mushilogger
 from mac_vendor_lookup import MacLookup
 import subprocess
 import re
+from goap import goap
 
 class ArpScan():
+
   def __init__(self):
     print("init ArpScan..")
 
+    self.start_time = ""
+    self.next_record_id = 0
     self.mlogger = mushilogger.MushiLogger()
 
 
-  def execute_arpscan(self, node, link, node_id, mushikago_ipaddr, nettype):
+  #def execute_arpscan(self, node, link, node_id, mushikago_ipaddr, nettype):
+  def execute_arpscan(self, node, link, node_id, mushikago_ipaddr, nettype, specify_addr):
     print('execute arpscan...')
     self.mlogger.writelog("execute arpscan...", "info")
 
     try:
-      res = subprocess.check_output('arp-scan -l -x -N -r 1 -g -I ' + nettype, shell=True).decode('utf-8')
+      if specify_addr:
+        res = subprocess.check_output('arp-scan -x -N -r 1 -g -I ' + nettype + " " + specify_addr, shell=True).decode('utf-8')
+      else:
+        res = subprocess.check_output('arp-scan -l -x -N -r 1 -g -I ' + nettype, shell=True).decode('utf-8')
       print(res)
       self.mlogger.writelog("arpscan result = \n" + res, "info")
     except:
@@ -27,20 +35,25 @@ class ArpScan():
     #print(iplist)
     if len(iplist) == 0:
       self.mlogger.writelog("No devices in this LAN", "info")
-      exit(0)
+      node_id = self.noexecute_arpscan(node, link, node_id, mushikago_ipaddr, nettype, specify_addr)
+      return node_id
 
     keys = ['id', 'mac', 'vendor']
 
     if (node_id == 0):
       d = {}
+      d['record_id'] = self.next_record_id
+      d['start_time'] = self.start_time
       d['id'] = mushikago_ipaddr
+      #d['mac'] = "80:25:c2:f0:24:48"
       d['mac'] = self.get_macaddr(nettype)
-      d['vendor'] = "Raspberry Pi"
+      d['vendor'] = "Powder Keg Technologies"
       d['group'] = node_id
       d['ports'] = []
-      d['os'] = "Raspberry Pi"
-      d['os_version'] = 'unknown'
+      d['os'] = "MUSHIKAGO OS"
+      d['os_version'] = '1.0'
       d['node_id'] = 0
+      d['src_ip'] = ""
       d['session'] = ""
       d['ics_protocol'] = {}
       d['ics_device'] = 0
@@ -97,14 +110,32 @@ class ArpScan():
       d['openport_vuln_list'] = []
       d['local_vuln_list'] = []
       d['success_exploit'] = []
+      d['success_local_exploit'] = []
+      d['trial_exploits'] = []
+      d['trial_local_exploits'] = []
+      d['scan_ipaddr'] = []
+      d['anti_virus'] = []
+      d['edr'] = []
+      d['firewall'] = []
+      d['ids_ips'] = []
+      d['utm'] = []
+      d['waf'] = []
+      d['siem'] = []
+      d['ssl_inspection'] = []
+      d['vpn'] = []
+      d['ssp'] = []
       node.append(d)
 
     for num in range(0, len(iplist), 3):
       d = dict(zip(keys, iplist[num:num+3]))
+      d['record_id'] = self.next_record_id + (num//3 + 1 + node_id)
+      d['start_time'] = self.start_time
       d['group'] = node_id
-      d['os'] = 'unknown'
-      d['os_version'] = 'unknown'
+      d['ports'] = []
+      d['os'] = 'Unknown'
+      d['os_version'] = 'Unknown'
       d['node_id'] = num//3 + 1 + node_id
+      d['src_ip'] = mushikago_ipaddr
       d['session'] = ""
       d['ics_protocol'] = {}
       d['ics_device'] = 0
@@ -161,6 +192,20 @@ class ArpScan():
       d['openport_vuln_list'] = []
       d['local_vuln_list'] = []
       d['success_exploit'] = []
+      d['success_local_exploit'] = []
+      d['trial_exploits'] = []
+      d['trial_local_exploits'] = []
+      d['scan_ipaddr'] = []
+      d['anti_virus'] = []
+      d['edr'] = []
+      d['firewall'] = []
+      d['ids_ips'] = []
+      d['utm'] = []
+      d['waf'] = []
+      d['siem'] = []
+      d['ssl_inspection'] = []
+      d['vpn'] = []
+      d['ssp'] = []
       #node["node"+str(node_num)] = d
       node.append(d)
 
@@ -184,18 +229,22 @@ class ArpScan():
 
 
   def noexecute_arpscan(self, node, link, node_id, mushikago_ipaddr, nettype, specify_addr):
-    print('no execute arpscan...')
-    self.mlogger.writelog("no execute arpscan...", "info")
+    print('No execute arpscan to target...')
+    self.mlogger.writelog("No execute arpscan to target...", "info")
 
     d = {}
+    d['record_id'] = self.next_record_id
+    d['start_time'] = self.start_time
     d['id'] = mushikago_ipaddr
+    #d['mac'] = "80:25:c2:f0:24:48"
     d['mac'] = self.get_macaddr(nettype)
-    d['vendor'] = "MUSHIKAGO"
+    d['vendor'] = "Powder Keg Technologies"
     d['group'] = node_id
     d['ports'] = []
-    d['os'] = "MUSHIKAGO"
-    d['os_version'] = 'Atom'
+    d['os'] = "MUSHIKAGO OS"
+    d['os_version'] = '1.0'
     d['node_id'] = 0
+    d['src_ip'] = ""
     d['session'] = ""
     d['ics_protocol'] = {}
     d['ics_device'] = 0
@@ -252,17 +301,34 @@ class ArpScan():
     d['openport_vuln_list'] = []
     d['local_vuln_list'] = []
     d['success_exploit'] = []
+    d['success_local_exploit'] = []
+    d['trial_exploits'] = []
+    d['trial_local_exploits'] = []
+    d['scan_ipaddr'] = []
+    d['anti_virus'] = []
+    d['edr'] = []
+    d['firewall'] = []
+    d['ids_ips'] = []
+    d['utm'] = []
+    d['waf'] = []
+    d['siem'] = []
+    d['ssl_inspection'] = []
+    d['vpn'] = []
+    d['ssp'] = []
     node.append(d)
 
     d = {}
+    d['record_id'] = self.next_record_id + 1
+    d['start_time'] = self.start_time
     d['id'] = specify_addr
     d['mac'] = ""
-    d['vendor'] = "unknown"
+    d['vendor'] = "Unknown"
     d['group'] = node_id
     d['ports'] = []
-    d['os'] = "unknown"
-    d['os_version'] = 'unknown'
+    d['os'] = "Unknown"
+    d['os_version'] = 'Unknown'
     d['node_id'] = 1
+    d['src_ip'] = mushikago_ipaddr
     d['session'] = ""
     d['ics_protocol'] = {}
     d['ics_device'] = 0
@@ -319,6 +385,20 @@ class ArpScan():
     d['openport_vuln_list'] = []
     d['local_vuln_list'] = []
     d['success_exploit'] = []
+    d['success_local_exploit'] = []
+    d['trial_exploits'] = []
+    d['trial_local_exploits'] = []
+    d['scan_ipaddr'] = []
+    d['anti_virus'] = []
+    d['edr'] = []
+    d['firewall'] = []
+    d['ids_ips'] = []
+    d['utm'] = []
+    d['waf'] = []
+    d['siem'] = []
+    d['ssl_inspection'] = []
+    d['vpn'] = []
+    d['ssp'] = []
     node.append(d)
 
     node_id = 1
@@ -347,6 +427,7 @@ class ArpScan():
     except:
       print("arp-scan file error!!")
       self.mlogger.writelog("arpscan fm mp error", "error")
+      return node_id
 
     mac = MacLookup()
     #mac.update_vendors() # Update in a year
@@ -367,7 +448,7 @@ class ArpScan():
       try:
         maclist.append(mac.lookup(iplist[num]))
       except:
-        maclist.append("unknown")
+        maclist.append("Unknown")
      
     #print(maclist)
     
@@ -384,6 +465,7 @@ class ArpScan():
       for node_num in range(0, len(node), 1):
         if node[node_num]["id"] == d["id"]:
           node[node_num]["vendor"] = maclist.pop(0)
+          node[node_num]["mac"] = d["mac"]
           already_scanned = 1
           decrement_count += 1
           break
@@ -392,12 +474,16 @@ class ArpScan():
       print("decrement_count = {}".format(decrement_count))
       
       if already_scanned == 0:
+        d['record_id'] = self.next_record_id + (num//2 + node_id - decrement_count)
+        d['start_time'] = self.start_time
         d['vendor'] = maclist.pop(0)
         d['group'] = node_id
-        d['os'] = 'unknown'
-        d['os_version'] = 'unknown'
+        d['ports'] = []
+        d['os'] = 'Unknown'
+        d['os_version'] = 'Unknown'
         d['node_id'] = num//2 + node_id - decrement_count
         #d['node_id'] = (num//2 + 1 + node_id) - decrement_count
+        d['src_ip'] = src_ip
         d['session'] = ""
         d['ics_protocol'] = {}
         d['ics_device'] = 0
@@ -454,11 +540,23 @@ class ArpScan():
         d['openport_vuln_list'] = []
         d['local_vuln_list'] = []
         d['success_exploit'] = []
+        d['success_local_exploit'] = []
+        d['trial_exploits'] = []
+        d['trial_local_exploits'] = []
+        d['scan_ipaddr'] = []
+        d['anti_virus'] = []
+        d['edr'] = []
+        d['firewall'] = []
+        d['ids_ips'] = []
+        d['utm'] = []
+        d['waf'] = []
+        d['siem'] = []
+        d['ssl_inspection'] = []
+        d['vpn'] = []
+        d['ssp'] = []
         node.append(d)
-        #decrement_count = 0
     
     #print(node)
-    
 
     keys = ['target']
 
@@ -486,7 +584,6 @@ class ArpScan():
         #d['node_id'] = (num//2 + 1 + node_id) - decrement_count
         d['value'] = 1
         link.append(d)
-        #decrement_count = 0
     
     node_id = num//2 + 1 + node_id - duplicate_count
     print("arpscan node_id = {}".format(node_id)) # test

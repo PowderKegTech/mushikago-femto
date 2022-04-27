@@ -16,6 +16,7 @@
 - Full automatic penetration testing tool
 - IT penetration testing
 - OT/ICS penetration testing (Only device identify and protocol checking)
+- First aid function (Automated patch or inject thin IPS)
 
 
 ## Abstract
@@ -99,6 +100,8 @@ Recommended to run as root.
 
 
 #### Step 2. The log file is as follows
+- nodes.json: List of detect devices
+
 - mushikago.log: Execution details of MUSHIKAGO-femto
 
 **Acknowledgement:** This code was created for personal use with hosts you able to hack/explore by any of the known bug bounty program. Use it at your own risk.

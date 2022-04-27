@@ -151,6 +151,7 @@
     "priority": 2,
     "precond": {
       "Symbol_GetOsPatch": true,
+      "Symbol_LogonUserInfo": true,
       "Symbol_PrivilegeEscalation": null
     },
     "effect": {

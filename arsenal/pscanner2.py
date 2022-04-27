@@ -10,7 +10,8 @@ if (len(sys.argv) != 2):
   print("Usage: # python3 pscanner2.py <ipaddress>")
   exit(0)
 
-scan_port = [22,80,88,135,139,389,443,445]
+#scan_port = [21,22,25,53,80,88,135,139,389,443,445,3389]
+scan_port = [21,22,23,25,53,80,88,110,123,135,139,143,389,443,445,465,587,993,995,1433,1521,3306,3389,5432,5900,5985,8010,8080]
 open_port = []
   
 # ip = socket.gethostbyname(target)

@@ -1,2 +1,31 @@
-bacnet
-modbus
+bacnet,BACnet
+modbus,Modbus
+hart_ip,HART_IP
+iec60870_104,IEC 60870
+iec60870_asdu,IEC 60870
+iec60870_101,IEC 60870
+epl,Ethernet POWERLINK
+enip,EtherNet/IP
+omron,OMRON-FINS
+dnp3,DNP3
+s7comm,S7 Communication
+ecat,EtherCAT
+cip,CIP
+pn_io,PROFINET
+pn_io_apdu_status,PROFINET
+pn_io_device,PROFINET
+pn_io_controller,PROFINET
+pn_io_implicitar,PROFINET
+pn_io_parameterserver,PROFINET
+pn_io_supervisor,PROFINET
+pn_dcp,PROFINET DCP
+pn_mrp,PROFINET MRP
+pn_mrrt,PROFINET MRRT
+pn_ptcp,PROFINET PTCP
+pn_rt,PROFINET RT
+goose,GOOSE
+mqtt,MQTT
+cotp,COTP
+opcua,OPC UA
+devicenet,DeviceNet
+bluetooth,Bluetooth

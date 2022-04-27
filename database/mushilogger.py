@@ -23,8 +23,8 @@ class MushiLogger():
     elif mode == "info":
       self.logger.info(arg)
     elif mode == "warn":
-      self.logger.info(arg)
+      self.logger.warning(arg)
     elif mode == "error":
-      self.logger.info(arg)
+      self.logger.error(arg)
     
     #logger.info(result.stdout.decode('utf-8'))

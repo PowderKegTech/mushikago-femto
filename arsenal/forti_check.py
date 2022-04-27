@@ -4,7 +4,7 @@ import re
 import copy
 import pprint
 
-class MyNmap():
+class FortiCheck():
   def __init__(self):
     print("init MyNmap")
 
@@ -12,21 +12,17 @@ class MyNmap():
     self.home_dir = "/home/mushikago/src/mushikago-femto-official"
 
 
-  def forti_check(self, number, service, version, node):
-    with open(self.home_dir + '/arsenal/forti_check.txt') as f:
+  def forti_check(self, number, service, version):
+    with open(self.home_dir + '/arsenal/ics_protocol_list.txt') as f:
+    #with open('./arsenal/forti_check.txt') as f:
       for forti_port in f:
         if forti_port.replace('\n', '') == number:
-          if "?" in service or "tcpwrapped" == service:
+          if "?" in service:
             if version == "":
               return 1, False
           elif "FortiGate" in version:
             return 5, False
           elif "http" == service:
-            if version == "":
-              return 1, False
-            else:
-              return 0, True
-          elif "ident" == service:
             if version == "":
               return 1, False
             else:
@@ -42,10 +38,9 @@ class MyNmap():
     flag = 0
     forti_point = 0
     exist_flag = 0
-    os_judgement = {"windows":0, "linux":0, "freebsd":0, "netbsd":0, "macos":0}
   
-    print('\nexecute nmap to {}...'.format(ip_addr))
-    self.mlogger.writelog("execute nmap to " + ip_addr, "info")
+    print('\nexecute forti_check to {}...'.format(ip_addr))
+    self.mlogger.writelog("execute forti_check to " + ip_addr, "info")
   
     check_port = '1-65535'
     #check_port = '1-200' # test
@@ -76,13 +71,12 @@ class MyNmap():
           except:
             d["version"] = ""
 
-          point, entity = self.forti_check(d["number"], d["service"], d["version"], node)
+          point, entity = self.forti_check(d["number"], d["service"], d["version"])
           forti_point += point
-          detect_ports.append(copy.deepcopy(d))
 
           if entity:
             exist_flag = 1
-            #detect_ports.append(copy.deepcopy(d))
+            detect_ports.append(copy.deepcopy(d))
           
         if 'SERVICE' and 'VERSION' in row:
           flag = 1
@@ -102,19 +96,12 @@ class MyNmap():
       self.mlogger.writelog("No tcp port open!!", "error")
       return 0
 
-    #print("detect_ports = {}".format(detect_ports))
-    #self.mlogger.writelog("OS identify count = windows: " + str(windows_count) + ", linux: " + str(linux_count), "info")
-    self.mlogger.writelog("detect_ports = " + pprint.pformat(detect_ports), "info")
-
-    # FortiGate Check
     print("forti_point = {}".format(forti_point))
-    self.mlogger.writelog("forti_point = " + str(forti_point), "info")
+    self.mlogger.writelog("forti_point = " + forti_point, "info")
 
     if forti_point > 3:
       print("FortiGate exists.")
       self.mlogger.writelog("FortiGate exists.", "info")
-      if not node[0]["utm"]:
-        node[0]["utm"].append("FortiGate")
     else:
       print("FortiGate does not exist.")
       self.mlogger.writelog("FortiGate does not exist.", "info")
@@ -125,8 +112,11 @@ class MyNmap():
     else:
       print("This machine does not exist.")
       self.mlogger.writelog("This machine does not exist.", "info")
-      # delete db record and nodes.json
-      return -1
+      return 0
+
+    #print("detect_ports = {}".format(detect_ports))
+    #self.mlogger.writelog("OS identify count = windows: " + str(windows_count) + ", linux: " + str(linux_count), "info")
+    self.mlogger.writelog("detect_ports = " + pprint.pformat(detect_ports), "info")
 
     # OS identify and version identify
     if node[num]["os"] == "MUSHIKAGO OS":
@@ -196,15 +186,11 @@ class MyNmap():
 
     detect_ports.clear()
 
-    return 0
-
 
   def execute_nmap2(self, ip_addr, node, num, proxy):
     detect_ports = []
     d = {}
     flag = 0
-    forti_point = 0
-    exist_flag = 0
     os_judgement = {"windows":0, "linux":0, "freebsd":0, "netbsd":0, "macos":0}
   
     print('\nexecute nmap to {}...'.format(ip_addr))
@@ -216,11 +202,10 @@ class MyNmap():
 
     try:
       if proxy == 0:
-        #res = subprocess.check_output('nmap -sTV -T5 -O -Pn --open -p' + check_port + ' ' + ip_addr, shell=True).decode('utf-8')
         res = subprocess.check_output('nmap -sTV -T5 -O -Pn --open -p' + check_port + ' ' + ip_addr, shell=True).decode('utf-8')
       else:
-        #res = subprocess.check_output('proxychains4 nmap -sTV -T5 -Pn -O --open -p' + check_port + ' ' + ip_addr, shell=True).decode('utf-8')
         res = subprocess.check_output('proxychains4 nmap -sTV -T5 -Pn -O --open -p' + check_port + ' ' + ip_addr, shell=True).decode('utf-8')
+        #res = subprocess.check_output('proxychains4 nmap -sTV -Pn -O --open -p' + check_port + ' ' + ip_addr, shell=True).decode('utf-8')
       rows = re.split('\n', res)
       print(rows)
 
@@ -236,17 +221,9 @@ class MyNmap():
           try: # check version
             if c[3]:
               d["version"] = c[3]
-            else:
-              d["version"] = ""
           except:
             d["version"] = ""
-
-          point, entity = self.forti_check(d["number"], d["service"], d["version"])
-          forti_point += point
-
-          if entity:
-            exist_flag = 1
-            detect_ports.append(copy.deepcopy(d))
+          detect_ports.append(copy.deepcopy(d))
 
         if 'SERVICE' and 'VERSION' in row:
           flag = 1
@@ -269,27 +246,6 @@ class MyNmap():
     #self.mlogger.writelog("OS identify count = windows: " + str(windows_count) + ", linux: " + str(linux_count), "info")
 
     self.mlogger.writelog("detect_ports =  " + pprint.pformat(detect_ports), "info")
-
-    # FortiGate Check
-    print("forti_point = {}".format(forti_point))
-    self.mlogger.writelog("forti_point = " + str(forti_point), "info")
-
-    if forti_point > 3:
-      print("FortiGate exists.")
-      self.mlogger.writelog("FortiGate exists.", "info")
-      # operate to ssl_inspection db 
-    else:
-      print("FortiGate does not exist.")
-      self.mlogger.writelog("FortiGate does not exist.", "info")
-
-    if exist_flag == 1:
-      print("This machine exists.")
-      self.mlogger.writelog("This machine exists.", "info")
-    else:
-      print("This machine does not exist.")
-      self.mlogger.writelog("This machine does not exist.", "info")
-      # delete db record and nodes.json
-      return -1
 
     # OS identify and version identify
     if max(os_judgement.values()) == 0:
@@ -356,5 +312,3 @@ class MyNmap():
     node[num]["goap"]["Symbol_IdentOs"] = True
 
     detect_ports.clear()
-
-    return 0

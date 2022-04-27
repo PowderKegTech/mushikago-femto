@@ -1,0 +1,8 @@
+hoge.py
+routeadd.sh
+routedel.sh
+nodes.json
+*.log
+*.csv
+db_dump
+bin/*.exe
