@@ -95,6 +95,22 @@ add "socks4 127.0.0.1 1080" and comment out socks5 line.
 #### Step 1-(e). Check help
 ```
 # sudo python3 main.py -h
+usage: main.py [-h] [-ip IPADDR] [-exc [EXCLUSION [EXCLUSION ...]]] [-t TYPE] [-a {it,ot}] [-ext EXECUTIONTIME] [-exp EXPLOIT]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -ip IPADDR, --ipaddr IPADDR
+                        Set the IP address.
+  -exc [EXCLUSION [EXCLUSION ...]], --exclusion [EXCLUSION [EXCLUSION ...]]
+                        Set exclusion IP addresses.
+  -t TYPE, --type TYPE  Set the network interface type which eth0 or wlan0. The default is eth0. The eth0 is ethernet port on MUSHIKAGO. The wlan0 is wireless module
+                        on MUSHIKAGO. Other virtual network devices (such as tun0) can also be selected.
+  -a {it,ot}, --action {it,ot}
+                        Set the action file. The default is it. The it is targeting to IT system. The ot is targeting to OT system.
+  -ext EXECUTIONTIME, --executiontime EXECUTIONTIME
+                        Set the execution time. At execution time, the pentest is terminated. Please specify in minutes.
+  -exp EXPLOIT, --exploit EXPLOIT
+                        Turn on the exploit fuction. If you do not want to affect the system in any way, we recommend turning it off.
 ```
 Recommended to run as root.
 
