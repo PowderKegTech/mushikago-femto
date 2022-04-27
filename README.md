@@ -3,7 +3,7 @@
 ![mushikago-title](./images/mushikago-femto.jpg)
 
 
-**MUSHIKAGO is an automatic penetration testing tool using game AI, which focuses on the verification of post-exploitation.**
+**MUSHIKAGO is an automated penetration testing and first aid tool, which focuses on the verification of post-exploitation.**
 
 
 <p align="center">
@@ -94,7 +94,7 @@ add "socks4 127.0.0.1 1080" and comment out socks5 line.
 
 #### Step 1-(e). Check help
 ```
-# python3 main.py -h
+# sudo python3 main.py -h
 ```
 Recommended to run as root.
 
