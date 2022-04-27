@@ -49,6 +49,13 @@ cd src &&
 git clone https://github.com/QbsuranAlang/arp-scan-windows- &&
 
 
+# naabu install
+cd ../../ &&
+cd src &&
+wget https://github.com/projectdiscovery/naabu/releases/download/v2.0.6/naabu_2.0.6_windows_386.zip &&
+unzip naabu_2.0.6_windows_386.zip &&
+
+
 # Metasploit install
 curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall &&
 chmod 755 msfinstall &&
