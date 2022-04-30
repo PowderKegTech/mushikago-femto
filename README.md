@@ -103,11 +103,12 @@ optional arguments:
   -exp EXPLOIT, --exploit EXPLOIT
                         Turn on the exploit fuction. If you do not want to affect the system in any way, we recommend turning it off.
 ```
-Recommended to run as root.
+
+**Recommended to run as root.**
 
 ![mushikago-femto](./images/femto_start.gif)
 
-Detected vulnerabilities and misconfigurations give a first aid after the pentest.
+**Detected vulnerabilities and misconfigurations give a first aid after the pentest.**
 
 ![mushikago-femto](./images/femto_autorepair.gif)
 
