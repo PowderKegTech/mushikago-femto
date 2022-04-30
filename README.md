@@ -1,20 +1,5 @@
 # **MUSHIKAGO-femto**
-
-
-╱╱╱╱╱╱╱╱╱╭╮╱╱╭╮
-╱╱╱╱╱╱╱╱╱┃┃╱╱┃┃
-╭╮╭┳╮╭┳━━┫╰━┳┫┃╭┳━━┳━━┳━━╮
-┃╰╯┃┃┃┃━━┫╭╮┣┫╰╯┫╭╮┃╭╮┃╭╮┃
-┃┃┃┃╰╯┣━━┃┃┃┃┃╭╮┫╭╮┃╰╯┃╰╯┃
-╰┻┻┻━━┻━━┻╯╰┻┻╯╰┻╯╰┻━╮┣━━╯
-╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╭━╯┃
-╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╱╰━━╯
-╭━━━┳━━━┳━╮╭━┳━━━━┳━━━╮
-┃╭━━┫╭━━┫┃╰╯┃┃╭╮╭╮┃╭━╮┃
-┃╰━━┫╰━━┫╭╮╭╮┣╯┃┃╰┫┃╱┃┃
-┃╭━━┫╭━━┫┃┃┃┃┃╱┃┃╱┃┃╱┃┃
-┃┃╱╱┃╰━━┫┃┃┃┃┃╱┃┃╱┃╰━╯┃
-╰╯╱╱╰━━━┻╯╰╯╰╯╱╰╯╱╰━━━╯
+![mushikago-femto](./images/logo-search-grid-2x.png)
 
 
 **MUSHIKAGO is an automated penetration testing and first aid tool, which focuses on the verification of post-exploitation.**
@@ -127,6 +112,8 @@ optional arguments:
                         Turn on the exploit fuction. If you do not want to affect the system in any way, we recommend turning it off.
 ```
 Recommended to run as root.
+
+![mushikago-femto](./images/femto_start.gif)
 
 
 #### Step 2. The log file is as follows
