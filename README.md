@@ -106,6 +106,9 @@ optional arguments:
 Recommended to run as root.
 
 ![mushikago-femto](./images/femto_start.gif)
+
+Detected vulnerabilities and misconfigurations give a first aid after the pentest.
+
 ![mushikago-femto](./images/femto_autorepair.gif)
 
 
