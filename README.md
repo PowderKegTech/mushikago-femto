@@ -1,4 +1,4 @@
-# **MUSHIKAGO-femto**
+
 ![mushikago-femto](./images/femto_logo.png)
 
 
@@ -114,6 +114,7 @@ optional arguments:
 Recommended to run as root.
 
 ![mushikago-femto](./images/femto_start.gif)
+![mushikago-femto](./images/femto_autorepair.gif)
 
 
 #### Step 2. The log file is as follows
