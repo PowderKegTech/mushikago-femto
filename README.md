@@ -2,7 +2,7 @@
 ![mushikago-femto](./images/femto_logo.png)
 
 
-**MUSHIKAGO is an automated penetration testing and first aid tool, which focuses on the verification of post-exploitation.**
+**MUSHIKAGO-femto is an automated penetration testing and first aid tool, which focuses on the verification of post-exploitation.**
 
 
 <p align="center">
@@ -10,6 +10,8 @@
 </p>
 
 ---
+
+![mushikago-femto](./images/femto_start.png)
 
 ## Features
 - Full automatic penetration testing tool
@@ -19,24 +21,14 @@
 
 
 ## Abstract
-  MUSHIKAGO-femto is a CLI (Command Line Interface) version of MUSHIKAGO. MUSHIKAGO uses game AI technology to select and execute the most appropriate test content based on the environment in spot. The application of game AI technology to security products is new, and our work has shown that game AI is most suitable for penetration testing, where the content needs to change depending on the environment. In addition, MUSHIKAGO can automatically perform penetration testing in mixed environments of IT and OT/ICS. This allows the user to perform penetration testing at a certain level without manual intervention. 
+ MUSHIKAGO-femto is an automated penetration testing and first aid tool, which mainly focuses on the verification of post-exploitation. MUSHIKAGO-femto uses game AI technology to select and execute the most appropriate test content based on the environment in spot. 
 
 
 ## Operation check environment:
 - OS
   - Ubuntu Server 20.04 LTS
 - Software
-  - python3
-  - nmap
-  - metasploit
-  - arp-scan
-  - arp-scan-windows
-  - tshark
-- Python modules
-  - pymetasploit3
-  - mac-vendor-lookup
-  - mechanicalsoup
-  - msgpack
+  - Python 3.x
 
 
 ## How to install
@@ -118,8 +110,6 @@ Recommended to run as root.
 
 
 #### Step 2. The log file is as follows
-- nodes.json: List of detect devices
-
 - mushikago.log: Execution details of MUSHIKAGO-femto
 
 **Acknowledgement:** This code was created for personal use with hosts you able to hack/explore by any of the known bug bounty program. Use it at your own risk.
@@ -146,7 +136,7 @@ Recommended to run as root.
   - Pre-designated file (mushikago_secret.txt)
 - Collecting Process list
 - Collecting Security product process
-  - AntiVurus Software
+  - AntiVirus Software
     - Panda
     - Kaspersky
     - Tanium
