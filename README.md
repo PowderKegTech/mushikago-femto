@@ -1,5 +1,5 @@
 # **MUSHIKAGO-femto**
-![mushikago-femto](./images/logo-search-grid-2x.png)
+![mushikago-femto](./images/femto_logo.png)
 
 
 **MUSHIKAGO is an automated penetration testing and first aid tool, which focuses on the verification of post-exploitation.**
