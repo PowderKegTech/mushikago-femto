@@ -65,28 +65,28 @@ add "socks4 127.0.0.1 1080" and comment out socks5 line.
 
 #### Step 1-(a). MUSHIKAGO-femto execution (Target system is IT)
 ```
-# python3 main.py -a it
+# python3 femto.py -a it
 ```
 
 #### Step 1-(b). MUSHIKAGO-femto execution (Target system is OT)
 ```
-# python3 main.py -a ot
+# python3 femto.py -a ot
 ```
 
 #### Step 1-(c). To specify an IP address (-ip or --ipaddr)
 ```
-# python3 main.py -a it -ip x.x.x.x
+# python3 femto.py -a it -ip x.x.x.x
 ```
 
 #### Step 1-(d). To specify an NIC (-t or --type)
 ```
-# python3 main.py -a it -ip x.x.x.x -t wlan0
+# python3 femto.py -a it -ip x.x.x.x -t wlan0
 ```
 
 #### Step 1-(e). Check help
 ```
-# sudo python3 main.py -h
-usage: main.py [-h] [-ip IPADDR] [-exc [EXCLUSION [EXCLUSION ...]]] [-t TYPE] [-a {it,ot}] [-ext EXECUTIONTIME] [-exp EXPLOIT]
+# sudo python3 femto.py -h
+usage: femto.py [-h] [-ip IPADDR] [-exc [EXCLUSION [EXCLUSION ...]]] [-t TYPE] [-a {it,ot}] [-ext EXECUTIONTIME] [-exp EXPLOIT]
 
 optional arguments:
   -h, --help            show this help message and exit
