@@ -23,6 +23,13 @@ def goap_write(arg, count):
       w.writerow(arg)
 
 
+def get_start_time():
+  dt_now = datetime.datetime.now()
+  with open('./start_time.log', 'w') as f:
+    f.write(str(dt_now.strftime("%Y-%m-%d %H:%M:%S")))
+  return str(dt_now.strftime("%Y-%m-%d %H:%M:%S"))
+
+
 def get_execute_time():
   dt_now = datetime.datetime.now()
   return str(dt_now.strftime("%Y-%m-%d %H:%M:%S"))
@@ -76,6 +83,9 @@ if __name__ == '__main__':
   mlogger = mushilogger.MushiLogger()
   home_dir = "/home/mushikago/src/mushikago-femto-official"
 
+  start_time = get_start_time()
+  img_time = start_time.replace('-', '').replace(' ', '-').replace(':', '')
+
   parser = ArgumentParser()
   
   parser.add_argument('-ip', '--ipaddr', help='Set the IP address.')
@@ -84,13 +94,12 @@ if __name__ == '__main__':
   parser.add_argument('-a', '--action', choices=['it', 'ot'], default='it', help='Set the action file. The default is it. The it is targeting to IT system. The ot is targeting to OT system.')
   parser.add_argument('-ext', '--executiontime', help='Set the execution time. At execution time, the pentest is terminated. Please specify in minutes.')
   parser.add_argument('-exp', '--exploit', help='Turn on the exploit fuction. If you do not want to affect the system in any way, we recommend turning it off.')
+  parser.add_argument('-fa', '--firstaid', help='Provide first aid against discovered attacks.', nargs='*')
 
   args = parser.parse_args()
   target_ip = "All Devices"
   exclusion_ip = "Nothing"
   execution_time = 0
-
-  #aa_pattern = []
 
   f1 = Figlet(font="slant")
   f2 = Figlet(font="colossal")
@@ -115,6 +124,9 @@ if __name__ == '__main__':
   if args.exclusion:
     exclusion_ip = args.exclusion
     check_exclusion_ipaddr(args.exclusion, mlogger)
+
+  if args.firstaid:
+    mlogger.writelog("MUSHIKAGO first aid mode", "info")
 
   if args.action == "it":
     actionfile = home_dir + '/goap/actions-it.json'
@@ -191,6 +203,16 @@ if __name__ == '__main__':
       print("main state = {}".format(goap_node.state))
 
       plan = goap_node.goap_plannning(goap_node)
+      # test plan
+      if count == 1:
+      #if count >= 1:
+        #plan = ["info_collect", "vulnscan", "get_packetinfo", "detect_ics_protocol", "detect_ics_device"] # test
+        #plan = ["info_collect", "vulnscan", "exploit_lateral", "get_local_secretinfo", "get_nw_secretinfo"] # test
+        #plan = ["info_collect", "vulnscan", "exploit_lateral", "get_dc_info", "get_logon_user", "get_local_user", "get_domain_user", "get_local_secretinfo", "get_nw_secretinfo"] # test
+        plan = ["exploit_lateral", "get_dc_info", "get_logon_user", "get_local_user", "get_domain_user", "get_local_secretinfo", "priv_escalation", "get_logon_user", "get_local_user", "get_domain_user", "get_local_secretinfo"] # test
+      #if count == 2:
+      #  plan = ["get_nw_secretinfo"]
+      # test plan end
 
       goap_node.state = copy.deepcopy(target_state)
 
@@ -212,4 +234,4 @@ if __name__ == '__main__':
 
   print("MUSHIKAGO penetration testing complete...")
   mlogger.writelog("MUSHIKAGO penetration testing complete...", "info")
-  #completion_time = get_execute_time()
+  completion_time = get_execute_time()
