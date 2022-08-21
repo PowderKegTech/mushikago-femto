@@ -2,6 +2,7 @@ from database import mushilogger
 from pymetasploit3.msfrpc import MsfRpcClient
 import subprocess
 import re
+import os
 from arsenal import mynmap
 from arsenal import msploit
 
@@ -13,7 +14,7 @@ class NetworkScan():
     self.mlogger = mushilogger.MushiLogger()
     self.exploit = msploit.MetaSploit()
 
-    self.home_dir = "/home/mushikago/src/mushikago-femto-official"
+    self.home_dir = os.getcwd()
 
 
   def msf_connection(self):

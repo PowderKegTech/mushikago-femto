@@ -3,13 +3,14 @@ import subprocess
 import copy
 import pprint
 import csv
+import os
 
 class IcsDetect():
   def __init__(self):
     print("init ICS Detect..")
 
     self.mlogger = mushilogger.MushiLogger()
-    self.home_dir = "/home/mushikago/src/mushikago-femto-official"
+    self.home_dir = os.getcwd()
 
   def detect_protocol(self, node_num, node):
     p_list = {}

@@ -3,11 +3,11 @@
 # apt update and install required modules
 apt update &&
 apt upgrade -y &&
-apt install build-essential g++ gcc make autoconf dh-autoreconf libpcap-dev sqlite3 libsqlite3-dev libssl-dev net-tools tshark python-dev default-libmysqlclient-dev python3-dev -y &&
+apt install build-essential g++ gcc make autoconf dh-autoreconf libpcap-dev sqlite3 libsqlite3-dev libssl-dev net-tools tshark python2-dev default-libmysqlclient-dev python3-dev unzip -y &&
 
 
 # nmap install
-mkdir src &&
+mkdir -p src &&
 cd src &&
 git clone https://github.com/nmap/nmap.git &&
 cd nmap &&
@@ -50,7 +50,7 @@ git clone https://github.com/QbsuranAlang/arp-scan-windows- &&
 
 
 # naabu install
-cd ../../ &&
+cd ../ &&
 cd src &&
 wget https://github.com/projectdiscovery/naabu/releases/download/v2.0.6/naabu_2.0.6_windows_386.zip &&
 unzip naabu_2.0.6_windows_386.zip &&

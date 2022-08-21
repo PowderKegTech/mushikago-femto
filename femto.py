@@ -81,7 +81,7 @@ if __name__ == '__main__':
   pre_exe = None
   end_specify_ipaddr = 0
   mlogger = mushilogger.MushiLogger()
-  home_dir = "/home/mushikago/src/mushikago-femto-official"
+  home_dir = os.getcwd()
 
   start_time = get_start_time()
   img_time = start_time.replace('-', '').replace(' ', '-').replace(':', '')

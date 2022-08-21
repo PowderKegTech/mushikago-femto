@@ -1,6 +1,7 @@
 from database import mushilogger
 import subprocess
 import re
+import os
 import copy
 import pprint
 
@@ -9,7 +10,7 @@ class MyNmap():
     print("init MyNmap")
 
     self.mlogger = mushilogger.MushiLogger()
-    self.home_dir = "/home/mushikago/src/mushikago-femto-official"
+    self.home_dir = os.getcwd()
 
 
   def forti_check(self, number, service, version, node):
